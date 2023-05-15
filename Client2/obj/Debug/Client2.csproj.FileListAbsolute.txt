@@ -1,0 +1,7 @@
+D:\Github\ServerToClient\UdpServerToCliets\Client2\bin\Debug\Client2.exe
+D:\Github\ServerToClient\UdpServerToCliets\Client2\bin\Debug\Client2.pdb
+D:\Github\ServerToClient\UdpServerToCliets\Client2\obj\Debug\Client2.csproj.AssemblyReference.cache
+D:\Github\ServerToClient\UdpServerToCliets\Client2\obj\Debug\Client2.csproj.SuggestedBindingRedirects.cache
+D:\Github\ServerToClient\UdpServerToCliets\Client2\obj\Debug\Client2.csproj.CoreCompileInputs.cache
+D:\Github\ServerToClient\UdpServerToCliets\Client2\obj\Debug\Client2.exe
+D:\Github\ServerToClient\UdpServerToCliets\Client2\obj\Debug\Client2.pdb

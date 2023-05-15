@@ -1,0 +1,10 @@
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\bin\Debug\UdpServerToCliets.exe
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\bin\Debug\UdpServerToCliets.pdb
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\obj\Debug\UdpServerToCliets.csproj.AssemblyReference.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\obj\Debug\UdpServerToCliets.csproj.SuggestedBindingRedirects.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\obj\Debug\UdpServerToCliets.csproj.CoreCompileInputs.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\obj\Debug\UdpServerToCliets.exe
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\obj\Debug\UdpServerToCliets.pdb
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\bin\Debug\System.Drawing.Common.dll
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\bin\Debug\System.Drawing.Common.xml
+D:\Github\ServerToClient\UdpServerToCliets\UdpServerToCliets\obj\Debug\UdpServerToCliets.csproj.CopyComplete
