@@ -1,0 +1,11 @@
+E:\Github repository\UdpServerToCliets\WInFormUDP\bin\Debug\WInFormUDP.exe.config
+E:\Github repository\UdpServerToCliets\WInFormUDP\bin\Debug\WInFormUDP.exe
+E:\Github repository\UdpServerToCliets\WInFormUDP\bin\Debug\WInFormUDP.pdb
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.csproj.AssemblyReference.cache
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.csproj.SuggestedBindingRedirects.cache
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.Properties.Resources.resources
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.csproj.GenerateResource.cache
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.csproj.CoreCompileInputs.cache
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.exe
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.pdb
+E:\Github repository\UdpServerToCliets\WInFormUDP\obj\Debug\WInFormUDP.Form1.resources

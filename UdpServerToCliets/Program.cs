@@ -61,7 +61,7 @@ namespace UdpServerToCliets
             //     Console.WriteLine("Client disconnected");
             // }
 
-            int serverPort = 8000;
+            int serverPort = 8123;
             UdpClient server = new UdpClient(serverPort);
 
             Console.WriteLine("Server started on port {0}", serverPort);
@@ -80,17 +80,17 @@ namespace UdpServerToCliets
                 string extension;
                 Random rnd = new Random();
                 int objectType = rnd.Next(1, 4);
-                switch (requestString)
+                switch (objectType)
                 {
-                    case "txt":
+                    case 1:
                         fileData = GenerateTextFile();
                         extension = "txt";
                         break;
-                    case "html":
+                    case 2:
                         fileData = GenerateHtmlFile();
                         extension = "html";
                         break;
-                    case "jpg":
+                    case 3:
                         fileData = GenerateImageFile();
                         extension = "jpg";
                         break;

@@ -10,7 +10,7 @@ namespace Client2
         static void Main(string[] args)
         {
             string serverIpAddress = "127.0.0.1";
-            int serverPort = 8000;
+            int serverPort = 5007;
             UdpClient client = new UdpClient();
 
             Console.WriteLine("Connecting to server {0}:{1}", serverIpAddress, serverPort);

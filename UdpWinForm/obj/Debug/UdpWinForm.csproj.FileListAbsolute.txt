@@ -1,0 +1,10 @@
+E:\Github repository\UdpServerToCliets\UdpWinForm\bin\Debug\UdpWinForm.exe.config
+E:\Github repository\UdpServerToCliets\UdpWinForm\bin\Debug\UdpWinForm.exe
+E:\Github repository\UdpServerToCliets\UdpWinForm\bin\Debug\UdpWinForm.pdb
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.AssemblyReference.cache
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.SuggestedBindingRedirects.cache
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.Properties.Resources.resources
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.GenerateResource.cache
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.CoreCompileInputs.cache
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.exe
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.pdb
