@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -10,13 +12,15 @@ using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 
 namespace UdpWinForm
 {
     public partial class Form1 : Form
     {
-        private UdpClient server;
-        private bool isRunning;
+        
+        private UdpClient _udpServer;
+        private const int ServerPort = 8000;
 
         public Form1()
         {
@@ -25,105 +29,150 @@ namespace UdpWinForm
 
         private void Form1_Load_1(object sender, EventArgs e)
         {
-            textBox1.Text = "8000";
-            isRunning = false;
+            _udpServer = new UdpClient(ServerPort);
+            label1.Text = @"Server started on port " + ServerPort;
+        }
+
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (_udpServer != null)
+            {
+                _udpServer.Close();
+            }
         }
 
         private void startButton_Click_1(object sender, EventArgs e)
         {
-            if (!isRunning)
+            try
             {
-                // Start server
-                int serverPort = int.Parse(textBox1.Text);
-                server = new UdpClient(serverPort);
-                isRunning = true;
-                startButton.Text = "Stop";
-                label1.Text = "Running on port " + serverPort;
+                // Receive request
+                IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] request = _udpServer.Receive(ref clientEndPoint);
+                string requestString = Encoding.ASCII.GetString(request);
 
-                // Start listening for requests
-                Task.Run(() => ListenForRequests());
+                label2.Text = @"Received request from client " + clientEndPoint + @": " + requestString + Environment.NewLine;
+                
+                // Generate file based on request
+                byte[] fileData;
+                string extension;
+                Random random = new Random();
+                int objectType = random.Next(1, 5);
+                // int objectType = 4;
+                switch (objectType)
+                {
+                    case 1:
+                        fileData = GenerateTextFile();
+                        extension = "txt";
+                        break;
+                    case 2:
+                        fileData = GenerateHtmlFile();
+                        extension = "html";
+                        break;
+                    case 3:
+                        fileData = GenerateImageFile();
+                        extension = "jpg";
+                        break;
+                    case 4:
+                        pictureBox1.Image.Save("picture.png", ImageFormat.Png);
+                        byte[] data = File.ReadAllBytes("picture.png");
+                        fileData = data;
+                        extension = "png";
+                        break;
+                    default:
+                        fileData = GenerateTextFile();
+                        extension = "txt";
+                        break;
+                }
+
+                // Send file extension
+                byte[] extensionData = Encoding.ASCII.GetBytes(extension);
+                _udpServer.Send(extensionData, extensionData.Length, clientEndPoint);
+
+                // Send file data
+                _udpServer.Send(fileData, fileData.Length, clientEndPoint);
+
+                label2.Text = @"Sent file with extension " + extension + @" to client " + clientEndPoint + Environment.NewLine;
             }
-            else
+            catch (Exception ex)
             {
-                // Stop server
-                server.Close();
-                isRunning = false;
-                startButton.Text = "Start";
-                label1.Text = "Stopped";
+                label2.Text = @"Error: " + ex.Message + Environment.NewLine;
             }
         }
 
-        private async Task ListenForRequests()
+        static byte[] GenerateTextFile()
         {
-            while (isRunning)
+            string text = "Hello, world!";
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(text);
+            return data;
+        }
+
+        static byte[] GenerateHtmlFile()
+        {
+            string html = "<html><body><h1>Hello, world!</h1></body></html>";
+            byte[] data = System.Text.Encoding.UTF8.GetBytes(html);
+            return data;
+        }
+
+        static byte[] GenerateImageFile()
+        {
+            
+            Random random = new Random();
+            int objectType = random.Next(1, 4);
+            switch (objectType)
             {
-                try
+                case 1:
+                    GenerateGraphics("Hello, world!");
+                    break;
+                case 2:
+                    GenerateGraphics("HTML file");
+                    break;
+                case 3:
+                    GenerateGraphics("Image file");
+                    break;
+            }
+            byte[] data = File.ReadAllBytes("image.jpg");
+            return data;
+        }
+
+        static void GenerateGraphics(string text)
+        {
+            using (Bitmap image = new Bitmap(100, 100))
+            {
+                // Создаем новый объект Graphics из Bitmap
+                using (Graphics graphics = Graphics.FromImage(image))
                 {
-                    // Receive request
-                    IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
-                    byte[] request = server.Receive();
-                    string requestString = System.Text.Encoding.ASCII.GetString(request);
-
-                    Invoke((MethodInvoker)delegate
+                    // Настраиваем параметры рисования
+                    graphics.SmoothingMode = SmoothingMode.AntiAlias;
+                    graphics.Clear(Color.White); // Заливаем изображение белым цветом
+                    using (Font font = new Font("Arial", 8))
                     {
-                        LogMessage("Received request from client " + clientEndPoint + ": " + requestString);
-                    });
-
-                    // Generate file based on request
-                    byte[] fileData;
-                    string extension;
-                    switch (requestString)
-                    {
-                        case "object1":
-                            fileData = File.ReadAllBytes("file1.txt");
-                            extension = "txt";
-                            break;
-                        case "object2":
-                            fileData = File.ReadAllBytes("file2.html");
-                            extension = "html";
-                            break;
-                        case "object3":
-                            fileData = File.ReadAllBytes("file3.jpg");
-                            extension = "jpg";
-                            break;
-                        default:
-                            fileData = new byte[0];
-                            extension = "";
-                            break;
-                    }
-
-                    // Send file extension
-                    byte[] extensionData = System.Text.Encoding.ASCII.GetBytes(extension);
-                    await server.SendAsync(extensionData, extensionData.Length, clientEndPoint);
-
-                    // Send file data
-                    await server.SendAsync(fileData, fileData.Length, clientEndPoint);
-
-                    Invoke((MethodInvoker)delegate
-                    {
-                        LogMessage("Sent file with extension " + extension + " to client " + clientEndPoint);
-                    });
-                }
-                catch (SocketException ex)
-                {
-                    if (isRunning)
-                    {
-                        Invoke((MethodInvoker)delegate
+                        using (Brush brush = new SolidBrush(Color.Black))
                         {
-                            LogMessage("Error receiving or sending data: " + ex.Message);
-                        });
+                            // Рисуем текст на изображении
+                            graphics.DrawString(text, font, brush, new PointF(10, 10));
+                        }
                     }
+
+                    string filename = "image.jpg";
+                    // Сохраняем изображение в формате JPEG
+                    image.Save(filename, ImageFormat.Jpeg);
                 }
             }
         }
-
-        private void LogMessage(string message)
-        {
-            logTextBox.AppendText(message + "\n");
-        }
-
-
         
+
+        private void button1_Click_1(object sender, EventArgs e)
+        {
+            if (openFileDialog1.ShowDialog() == DialogResult.Cancel)
+                return;
+            // получаем выбранный файл
+            string filename = openFileDialog1.FileName;
+            // читаем файл в строку
+            // string fileText = System.IO.File.ReadAllText(filename);
+            // textBox1.Text = fileText;
+            // MessageBox.Show("Файл открыт");
+            pictureBox1.Image = Image.FromFile(filename);
+        }
     }
     
 }

@@ -8,3 +8,14 @@ E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.Ge
 E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.CoreCompileInputs.cache
 E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.exe
 E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.pdb
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\bin\Debug\UdpWinForm.exe.config
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\bin\Debug\UdpWinForm.exe
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\bin\Debug\UdpWinForm.pdb
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.AssemblyReference.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.SuggestedBindingRedirects.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.Form1.resources
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.Properties.Resources.resources
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.GenerateResource.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.CoreCompileInputs.cache
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.exe
+D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.pdb

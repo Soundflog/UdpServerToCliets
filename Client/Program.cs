@@ -18,7 +18,7 @@ namespace Client
 
             // Send request
             Console.WriteLine("Введите txt, html, jpg: ");
-            byte[] requestData = System.Text.Encoding.ASCII.GetBytes(Console.ReadLine());
+            byte[] requestData = System.Text.Encoding.ASCII.GetBytes("object1");
             IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIpAddress), serverPort);
             client.Send(requestData, requestData.Length, serverEndPoint);
 
