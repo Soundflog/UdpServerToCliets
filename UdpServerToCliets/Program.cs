@@ -10,55 +10,105 @@ namespace UdpServerToCliets
     {
         public static void Main(string[] args)
         {
-            IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
-            int port = 8000;
+            // IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+            // int port = 8000;
+            // IPEndPoint endPoint = null;
+            // UdpClient listener = new UdpClient("localhost", port);
+            // // listener.Start();
+            // Console.WriteLine("Server started");
+            //
+            // while (true)
+            // {
+            //     Console.WriteLine("Client connected");
+            //
+            //     // Generate random object type
+            //     Random random = new Random();
+            //     int objectType = random.Next(1, 4);
+            //     // int objectType = 3;
+            //     // Generate file
+            //     string extension = "";
+            //     byte[] fileData = null;
+            //     switch (objectType)
+            //     {
+            //         case 1:
+            //             extension = "txt";
+            //             fileData = GenerateTextFile();
+            //             break;
+            //         case 2:
+            //             extension = "html";
+            //             fileData = GenerateHtmlFile();
+            //             break;
+            //         case 3:
+            //             extension = "jpg";
+            //             fileData = GenerateImageFile();
+            //             break;
+            //     }
+            //
+            //     var receivedBytes = listener.Receive(ref endPoint);
+            //     // Send file to client
+            //     using (FileStream stream = new FileStream())
+            //     {
+            //         // Send file extension
+            //         byte[] extensionData = Encoding.UTF8.GetBytes(extension);
+            //         stream.Write(extensionData, 0, extensionData.Length);
+            //         Console.WriteLine($"file.{extension} sent");
+            //         // Send file data
+            //         stream.Write(fileData, 0, fileData.Length);
+            //         // Console.WriteLine($"File: {Encoding.UTF8.GetString(fileData)} sent");
+            //     }
+            //
+            //     client.Close();
+            //     Console.WriteLine("Client disconnected");
+            // }
 
-            TcpListener listener = new TcpListener(ipAddress, port);
-            listener.Start();
-            Console.WriteLine("Server started");
+            int serverPort = 8000;
+            UdpClient server = new UdpClient(serverPort);
+
+            Console.WriteLine("Server started on port {0}", serverPort);
 
             while (true)
             {
-                TcpClient client = listener.AcceptTcpClient();
-                Console.WriteLine("Client connected");
+                // Receive request
+                IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                byte[] request = server.Receive(ref clientEndPoint);
+                string requestString = System.Text.Encoding.ASCII.GetString(request);
 
-                // Generate random object type
-                Random random = new Random();
-                int objectType = random.Next(1, 4);
-                // int objectType = 3;
-                // Generate file
-                string extension = "";
-                byte[] fileData = null;
-                switch (objectType)
+                Console.WriteLine("Received request from client {0}: {1}", clientEndPoint, requestString);
+
+                // Generate file based on request
+                byte[] fileData;
+                string extension;
+                Random rnd = new Random();
+                int objectType = rnd.Next(1, 4);
+                switch (requestString)
                 {
-                    case 1:
-                        extension = "txt";
+                    case "txt":
                         fileData = GenerateTextFile();
+                        extension = "txt";
                         break;
-                    case 2:
-                        extension = "html";
+                    case "html":
                         fileData = GenerateHtmlFile();
+                        extension = "html";
                         break;
-                    case 3:
-                        extension = "jpg";
+                    case "jpg":
                         fileData = GenerateImageFile();
+                        extension = "jpg";
+                        break;
+                    default:
+                        fileData = new byte[0];
+                        extension = "";
                         break;
                 }
 
-                // Send file to client
-                using (NetworkStream stream = client.GetStream())
-                {
-                    // Send file extension
-                    byte[] extensionData = Encoding.UTF8.GetBytes(extension);
-                    stream.Write(extensionData, 0, extensionData.Length);
-                    Console.WriteLine($"file.{extension} sent");
-                    // Send file data
-                    stream.Write(fileData, 0, fileData.Length);
-                    // Console.WriteLine($"File: {Encoding.UTF8.GetString(fileData)} sent");
-                }
+                // Send file extension
+                byte[] extensionData = System.Text.Encoding.ASCII.GetBytes(extension);
+                server.Send(extensionData, extensionData.Length, clientEndPoint);
 
-                client.Close();
-                Console.WriteLine("Client disconnected");
+                // Send file data
+                server.Send(fileData, fileData.Length, clientEndPoint);
+
+                Console.WriteLine("Sent file with extension {0} to client {1}", extension, clientEndPoint);
+                
             }
         }
 

@@ -7,44 +7,45 @@ namespace Client2
 {
     internal class Program
     {
-        public static void Main(string[] args)
+        static void Main(string[] args)
         {
-            IPAddress serverIpAddress = IPAddress.Parse("127.0.0.1");
+            string serverIpAddress = "127.0.0.1";
             int serverPort = 8000;
+            UdpClient client = new UdpClient();
 
-            TcpClient client = new TcpClient();
-            client.Connect(serverIpAddress, serverPort);
+            Console.WriteLine("Connecting to server {0}:{1}", serverIpAddress, serverPort);
 
-            Console.WriteLine("Connected to server");
+            // Send request
+            Console.WriteLine("Введите txt, html, jpg: ");
+            byte[] requestData = System.Text.Encoding.ASCII.GetBytes(Console.ReadLine());
+            IPEndPoint serverEndPoint = new IPEndPoint(IPAddress.Parse(serverIpAddress), serverPort);
+            client.Send(requestData, requestData.Length, serverEndPoint);
+
+            Console.WriteLine("Request sent to server");
 
             // Receive file extension
-            byte[] extensionData = new byte[10];
-            using (NetworkStream stream = client.GetStream())
+            byte[] extensionData = client.Receive(ref serverEndPoint);
+            string extension = System.Text.Encoding.ASCII.GetString(extensionData);
+
+            // Receive file data
+            byte[] fileData = client.Receive(ref serverEndPoint);
+
+            // Save file to disk
+            string fileName = "file." + extension;
+            File.WriteAllBytes(fileName, fileData);
+
+            // Open file with default program
+            switch (extension)
             {
-                int bytesRead = stream.Read(extensionData, 0, extensionData.Length);
-                string extension = System.Text.Encoding.UTF8.GetString(extensionData, 0, bytesRead);
-
-                // Receive file data
-                byte[] fileData = new byte[client.ReceiveBufferSize];
-                bytesRead = stream.Read(fileData, 0, fileData.Length);
-
-                // Save file to disk
-                string fileName = "file." + extension;
-                File.WriteAllBytes(fileName, fileData);
-
-                // Open file with default program
-                switch (extension)
-                {
-                    case "txt":
-                        System.Diagnostics.Process.Start(fileName);
-                        break;
-                    case "html":
-                        System.Diagnostics.Process.Start(fileName);
-                        break;
-                    case "jpg":
-                        System.Diagnostics.Process.Start(fileName);
-                        break;
-                }
+                case "txt":
+                    System.Diagnostics.Process.Start(fileName);
+                    break;
+                case "html":
+                    System.Diagnostics.Process.Start(fileName);
+                    break;
+                case "jpg":
+                    System.Diagnostics.Process.Start(fileName);
+                    break;
             }
 
             client.Close();
