@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
@@ -10,6 +11,7 @@ using System.Linq;
 using System.Net;
 using System.Net.Sockets;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Windows.Forms.VisualStyles;
@@ -75,6 +77,7 @@ namespace UdpWinForm
                     case 4:
                         pictureBox1.Image.Save("picture.png", ImageFormat.Png);
                         byte[] data = File.ReadAllBytes("picture.png");
+                        Process.Start("picture.png");
                         fileData = data;
                         extension = "png";
                         break;
@@ -85,12 +88,14 @@ namespace UdpWinForm
                 }
 
                 // Send file extension
+                // var threadSend = new Thread(SendFile);
+                // threadSend.Start();
                 byte[] extensionData = Encoding.ASCII.GetBytes(extension);
                 _udpServer.Send(extensionData, extensionData.Length, clientEndPoint);
 
                 // Send file data
                 _udpServer.Send(fileData, fileData.Length, clientEndPoint);
-
+                
                 label2.Text = @"Sent file with extension " + extension + @" to client " + clientEndPoint + Environment.NewLine;
             }
             catch (Exception ex)
@@ -98,6 +103,8 @@ namespace UdpWinForm
                 label2.Text = @"Error: " + ex.Message + Environment.NewLine;
             }
         }
+        
+        
 
         static byte[] GenerateTextFile()
         {
@@ -130,6 +137,8 @@ namespace UdpWinForm
                     GenerateGraphics("Image file");
                     break;
             }
+
+            Process.Start("image.jpg");
             byte[] data = File.ReadAllBytes("image.jpg");
             return data;
         }
@@ -155,7 +164,12 @@ namespace UdpWinForm
 
                     string filename = "image.jpg";
                     // Сохраняем изображение в формате JPEG
+                    // var pictureBox1 = new PictureBox();
+                    // pictureBox1.Image = image;
+                    
                     image.Save(filename, ImageFormat.Jpeg);
+                    
+                    // pictureBox.Image = image;
                 }
             }
         }
@@ -173,6 +187,8 @@ namespace UdpWinForm
             // MessageBox.Show("Файл открыт");
             pictureBox1.Image = Image.FromFile(filename);
         }
+
+        
     }
     
 }

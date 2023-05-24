@@ -19,3 +19,4 @@ D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.cspro
 D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.csproj.CoreCompileInputs.cache
 D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.exe
 D:\Github\ServerToClient\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.pdb
+E:\Github repository\UdpServerToCliets\UdpWinForm\obj\Debug\UdpWinForm.Form1.resources
