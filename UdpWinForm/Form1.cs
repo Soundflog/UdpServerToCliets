@@ -150,10 +150,20 @@ namespace UdpWinForm
                 // Создаем новый объект Graphics из Bitmap
                 using (Graphics graphics = Graphics.FromImage(image))
                 {
+<<<<<<< Updated upstream
                     // Настраиваем параметры рисования
                     graphics.SmoothingMode = SmoothingMode.AntiAlias;
                     graphics.Clear(Color.White); // Заливаем изображение белым цветом
                     using (Font font = new Font("Arial", 8))
+=======
+                    // Receive request
+                    IPEndPoint clientEndPoint = new IPEndPoint(IPAddress.Any, 0);
+                    IPEndPoint remoteEP = null;
+                    byte[] request = server.Receive(ref remoteEP);
+                    string requestString = System.Text.Encoding.ASCII.GetString(request);
+
+                    Invoke((MethodInvoker)delegate
+>>>>>>> Stashed changes
                     {
                         using (Brush brush = new SolidBrush(Color.Black))
                         {
